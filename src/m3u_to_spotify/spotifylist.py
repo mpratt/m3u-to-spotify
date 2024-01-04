@@ -12,6 +12,13 @@ class SpotifyList:
         self.db = Database(db_path)
         self.client = SpotifyRestClient(user_id=user_id, client_id=client_id, client_secret=client_secret, redirect_url=redirect_url)
 
+    def flush_list(self, list_name):
+        playlist = self.db.get_playlist_by(list_name)
+        if playlist:
+            self.client.delete_list(playlist[0][3])
+            self.db.truncate_playlist(playlist[0][3])
+
+
     def add_to_list(self, list_name, list_path, mp3):
         track_id = None
         track = self.db.get_track_by(artist=mp3.artist(), title=mp3.title())

@@ -50,6 +50,7 @@ def start():
     )
 
     print('Creating/updating list {} on {}'.format(playlist_name, m3u_file))
+    spotify.flush_list(playlist_name)
     while (line := playlist.readline().rstrip()):
         if os.path.isfile(line):
             try:

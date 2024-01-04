@@ -23,6 +23,10 @@ class Database:
         self.db.execute('INSERT INTO playlist_tracks (id_track, id_list) VALUES (?, ?)', (id_track, id_list))
         self.db.commit()
 
+    def truncate_playlist(self, id_list):
+        self.db.execute('DELETE FROM playlist_tracks WHERE id_list = ?', (id_list, ))
+        self.db.commit()
+
     def get_track_in_playlist(self, id_track, id_list):
         rows = self.db.execute('SELECT * FROM playlist_tracks WHERE id_track = ? AND id_list = ?', (id_track, id_list)).fetchall()
         return rows if len(rows) > 0 else None

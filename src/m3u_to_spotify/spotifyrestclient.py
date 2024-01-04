@@ -34,3 +34,6 @@ class SpotifyRestClient:
 
     def create_list(self, list_name):
         return self.spotify.user_playlist_create(self.user_id, list_name)
+
+    def delete_list(self, list_id):
+        return self.spotify.playlist_replace_items(list_id, [])
